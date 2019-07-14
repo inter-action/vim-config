@@ -298,7 +298,9 @@ set laststatus=2
 set nostartofline
 
 " Disable wrapping long string
-set nowrap
+" set nowrap
+set wrap linebreak nolist
+
 
 " Display Line numbers
 set number relativenumber
@@ -436,11 +438,18 @@ nmap <leader>s :%s//<left>
 vmap <leader>s :s//<left>
 
 " Moving between splits
-nmap <leader>w <C-w>w
+nmap <Right> gt
+nmap <Left> gT
+nmap <S-Right> <C-w>w
+nmap <S-Left> <C-w>h
 nmap <leader>q :q <CR>
+nmap <leader>w :w <CR>
 nmap <f2> :Rg <CR>
 nmap <C-j> <C-d>
 nmap <C-k> <C-u>
+nmap j gj
+nmap k gk
+
 
 
 "--------------------------------------------------
