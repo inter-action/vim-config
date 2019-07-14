@@ -38,6 +38,14 @@ python3 install.py --ts-completer
 
 在iterm中调节下颜色tab中的对比度;
 
+
+# search & replacement
+` $ brew install ripgrep `
+
+* ripgrep user guide - https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
+* https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
+* vim, fzf - https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
+
 # rust.vim
 
 https://github.com/rust-lang/rust.vim

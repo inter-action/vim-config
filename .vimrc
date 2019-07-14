@@ -42,6 +42,9 @@ Plug 'w0rp/ale'
 
 Plug 'easymotion/vim-easymotion'
 
+Plug 'jremmen/vim-ripgrep'
+let g:rg_command = 'rg --vimgrep -S'
+
 " syntax
 Plug 'pangloss/vim-javascript'
 Plug 'leafgarland/typescript-vim'
@@ -72,8 +75,8 @@ let g:ale_sign_warning = '😨'
 " Integrate Ale in airline
 let g:airline#extensions#ale#enabled = 1
 
-nmap <silent> [ <Plug>(ale_previous_wrap)
-nmap <silent> ] <Plug>(ale_next_wrap)
+" nmap <silent> [ <Plug>(ale_previous_wrap)
+nmap <silent> <f8> <Plug>(ale_next_wrap)
 
 "-------------------------
 " Fugitive
@@ -434,7 +437,10 @@ vmap <leader>s :s//<left>
 
 " Moving between splits
 nmap <leader>w <C-w>w
-nmap <leader>q :q<CR>
+nmap <leader>q :q <CR>
+nmap <f2> :Rg <CR>
+nmap <C-j> <C-d>
+nmap <C-k> <C-u>
 
 
 "--------------------------------------------------
