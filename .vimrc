@@ -23,7 +23,7 @@ call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
-Plug 'altercation/vim-colors-solarized'
+Plug 'flazz/vim-colorschemes'
 
 Plug 'valloric/youcompleteme'
 
@@ -41,6 +41,13 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'w0rp/ale'
 
 Plug 'easymotion/vim-easymotion'
+
+" syntax
+Plug 'pangloss/vim-javascript'
+Plug 'leafgarland/typescript-vim'
+let g:typescript_indent_disable = 1
+Plug 'peitalin/vim-jsx-typescript'
+
 
 " Initialize plugin system
 call plug#end()
@@ -87,6 +94,16 @@ nmap <silent> <leader>gc :Gcommit<cr>
 nmap <silent> <leader>gca :Gcommit -a<cr>
 " git fixup previous commit
 nmap <silent> <leader>gcf :Gcommit -a --amend<cr>
+
+
+"--------------------------------------------------
+" Colorscheme
+
+" Set highlighting for colorcolumn
+highlight ColorColumn ctermbg=lightGrey
+
+colorscheme Atelier_HeathLight
+set background=light
 
 
 "-------------------------
@@ -167,20 +184,6 @@ let NERDTreeMinimalUI=1
 
 " Display current file in the NERDTree ont the left
 nmap <silent> <leader>f :NERDTreeFind<CR>
-
-
-"--------------------------------------------------
-" Colorscheme
-
-
-" Use solarized colorscheme
-colorscheme solarized
-
-" Setting up light color scheme
-set background=dark
-
-" Set highlighting for colorcolumn
-highlight ColorColumn ctermbg=lightGrey
 
 "--------------------------------------------------
 " General options
@@ -372,11 +375,7 @@ set wildcharm=<TAB>
 "--------------------------------------------------
 " Folding
 
-" Enable syntax folding in javascript
-let javaScript_fold=1
-
-" No fold closed at open file
-set foldlevelstart=99
+set foldmethod=indent
 set nofoldenable
 
 " Keymap to toggle folds with space
@@ -470,6 +469,8 @@ if has("autocmd")
         au BufRead,BufNewFile *.xjst set ft=javascript
         au BufRead,BufNewFile *.tt2 set ft=tt2
         au BufRead,BufNewFile *.plaintex set ft=plaintex.tex
+        autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+
 
         " Auto close preview window, it uses with tags,
         " I don't use it

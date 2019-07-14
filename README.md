@@ -34,6 +34,10 @@ python3 install.py --ts-completer
 ```
 
 
+# 颜色
+
+在iterm中调节下颜色tab中的对比度;
+
 # rust.vim
 
 https://github.com/rust-lang/rust.vim
