@@ -83,6 +83,8 @@ python3 install.py --ts-completer
 https://github.com/rust-lang/rust.vim
 
 
+# change default git editor
+`git config --global core.editor "nvim"`
 
 # install 
 ```
