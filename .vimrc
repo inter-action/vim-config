@@ -413,7 +413,7 @@ set noswapfile
 set noeol
 
 " Spellcheck
-set spell spelllang=en_us
+" set spell spelllang=en_us
 
 "--------------------------------------------------
 " Diff Options

@@ -1,4 +1,9 @@
+
+# __目标__
+主要用vim读代码, 不写代码; 还是不习惯里边的插件的操作;
+
 * vimawesome - 
+
 
 研究下这个
 * https://github.com/inter-action/jarvis
@@ -45,6 +50,33 @@ python3 install.py --ts-completer
 * ripgrep user guide - https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
 * https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
 * vim, fzf - https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
+
+
+# completion
+
+
+有几种方式
+* native 原生支持的
+    * 
+    ```
+    C-n 
+    C-p
+    :help ins-completion
+    ```
+
+    * Omni completion, 一种原生支持的 IntelliSense 的clone版
+
+* LSP - https://www.kieranbamforth.me/blog/vim-lsp.html
+    * Coc
+        * `:CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css`
+        * https://github.com/neoclide/coc.nvim
+
+    * https://github.com/autozimu/LanguageClient-neovim
+
+* YouCompleteMe, 插件支持的
+
+* !A guide to modern Web Development with (Neo)vim - https://www.freecodecamp.org/news/a-guide-to-modern-web-development-with-neo-vim-333f7efbf8e2/
+
 
 # rust.vim
 
