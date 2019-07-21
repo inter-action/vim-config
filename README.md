@@ -72,6 +72,11 @@ python3 install.py --ts-completer
         * https://github.com/neoclide/coc.nvim
 
     * https://github.com/autozimu/LanguageClient-neovim
+    * https://www.kieranbamforth.me/blog/vim-lsp.html
+
+      ```
+      tnpm i -g typescript-language-server
+      ```
 
 * YouCompleteMe, 插件支持的
 
