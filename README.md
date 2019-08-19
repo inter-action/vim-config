@@ -51,6 +51,12 @@ python3 install.py --ts-completer
 * https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
 * vim, fzf - https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
 
+# 前置条件
+
+```
+brew install fzf
+brew install fd
+```
 
 # completion
 
@@ -75,10 +81,8 @@ python3 install.py --ts-completer
     * https://www.kieranbamforth.me/blog/vim-lsp.html
 
       ```
-      tnpm i -g typescript-language-server
+      npm install -g typescript-language-server
       ```
-
-* YouCompleteMe, 插件支持的
 
 * !A guide to modern Web Development with (Neo)vim - https://www.freecodecamp.org/news/a-guide-to-modern-web-development-with-neo-vim-333f7efbf8e2/
 

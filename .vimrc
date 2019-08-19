@@ -19,10 +19,6 @@ endif
 call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
-
-Plug 'kien/ctrlp.vim'
-let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
-
 Plug 'flazz/vim-colorschemes'
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
@@ -50,13 +46,23 @@ Plug 'autozimu/LanguageClient-neovim', {
     \ }
 
 " (Optional) Multi-entry selection UI.
-Plug '/usr/local/bin/fzf'
+" install fzf with home brew
+Plug '/usr/local/opt/fzf' 
 Plug 'junegunn/fzf.vim'
 
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 let g:deoplete#enable_at_startup = 1
 
 Plug 'jiangmiao/auto-pairs'
+
+
+"https://github.com/autozimu/LanguageClient-neovim/wiki/Recommended-Settings
+Plug 'Shougo/echodoc.vim'
+set cmdheight=2
+" Or, you could use neovim's floating text feature.
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'floating'
+" Always draw the signcolumn.
 
 " Initialize plugin system
 call plug#end()
@@ -74,9 +80,9 @@ syntax on
 set hidden
 
 let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['javascript-typescript-stdio'],
-    \ 'typescript': ['javascript-typescript-stdio'],
-    \ 'typescript.tsx': ['javascript-typescript-stdio'],
+    \ 'javascript': ['typescript-language-server', '--stdio'],
+    \ 'typescript': ['typescript-language-server', '--stdio'],
+    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
     \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
     \ 'go': ['~/go/bin/go-langserver'],
     \ }
@@ -85,7 +91,9 @@ nnoremap <F5> :call LanguageClient_contextMenu()<CR>
 " Or map each action separately
 nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
 nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+
 
 
 
@@ -116,8 +124,8 @@ nmap <silent> <leader>gcf :Gcommit -a --amend<cr>
 " Set highlighting for colorcolumn
 highlight ColorColumn ctermbg=lightGrey
 
-colorscheme Atelier_HeathLight
-set background=light
+colorscheme tender
+set background=dark
 
 
 "-------------------------
@@ -173,6 +181,8 @@ nmap <silent> <leader>f :NERDTreeFind<CR>
 
 " Auto reload changed files
 set autoread
+
+set signcolumn=yes
 
 " Always change current directory to current-editing-file dir
 "set autochdir
@@ -412,6 +422,7 @@ nnoremap gl <C-w>w
 
 nnoremap <S-J> <C-d>
 nnoremap <S-K> <C-u>
+nnoremap <C-P> :Files<CR>
 
 nnoremap <silent><leader>q :q<CR>
 nnoremap <silent><leader>w :w<CR>
@@ -422,6 +433,13 @@ nnoremap <f3> :Rg <CR>
 nnoremap j gj
 nnoremap k gk
 
+" https://unix.stackexchange.com/questions/162528/select-an-item-in-vim-autocomplete-list-without-inserting-line-break
+inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
+" inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
+inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
+
+" inoremap <C-x> <Esc>ddi
 
 
 "--------------------------------------------------
