@@ -55,15 +55,6 @@ let g:deoplete#enable_at_startup = 1
 
 Plug 'jiangmiao/auto-pairs'
 
-
-"https://github.com/autozimu/LanguageClient-neovim/wiki/Recommended-Settings
-Plug 'Shougo/echodoc.vim'
-set cmdheight=2
-" Or, you could use neovim's floating text feature.
-let g:echodoc#enable_at_startup = 1
-let g:echodoc#type = 'floating'
-" Always draw the signcolumn.
-
 " Initialize plugin system
 call plug#end()
 
@@ -182,6 +173,7 @@ nmap <silent> <leader>f :NERDTreeFind<CR>
 " Auto reload changed files
 set autoread
 
+"Always draw the signcolumn.
 set signcolumn=yes
 
 " Always change current directory to current-editing-file dir
