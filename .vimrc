@@ -24,21 +24,13 @@ Plug 'kien/ctrlp.vim'
 let g:ctrlp_custom_ignore = 'node_modules\|DS_Store\|git'
 
 Plug 'flazz/vim-colorschemes'
-
-Plug 'valloric/youcompleteme'
-
 Plug 'tpope/vim-fugitive'
-
 Plug 'tpope/vim-surround'
-
 Plug 'scrooloose/nerdtree'
-
 Plug 'rust-lang/rust.vim'
 
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
-
-Plug 'w0rp/ale'
 
 Plug 'easymotion/vim-easymotion'
 
@@ -51,6 +43,20 @@ Plug 'leafgarland/typescript-vim'
 let g:typescript_indent_disable = 1
 Plug 'peitalin/vim-jsx-typescript'
 
+" LSP
+Plug 'autozimu/LanguageClient-neovim', {
+    \ 'branch': 'next',
+    \ 'do': 'bash install.sh',
+    \ }
+
+" (Optional) Multi-entry selection UI.
+Plug '/usr/local/bin/fzf'
+Plug 'junegunn/fzf.vim'
+
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+let g:deoplete#enable_at_startup = 1
+
+Plug 'jiangmiao/auto-pairs'
 
 " Initialize plugin system
 call plug#end()
@@ -61,22 +67,27 @@ call plug#end()
 syntax on
 
 
-
 "-------------------------
-" Ale
+" LSP
 "
+" Required for operations modifying multiple buffers like rename.
+set hidden
 
-" Always open sign column, it's annoying if its jumping
-let g:ale_sign_column_always = 1
+let g:LanguageClient_serverCommands = {
+    \ 'javascript': ['javascript-typescript-stdio'],
+    \ 'typescript': ['javascript-typescript-stdio'],
+    \ 'typescript.tsx': ['javascript-typescript-stdio'],
+    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
+    \ 'go': ['~/go/bin/go-langserver'],
+    \ }
 
-let g:ale_sign_error = '😱'
-let g:ale_sign_warning = '😨'
+nnoremap <F5> :call LanguageClient_contextMenu()<CR>
+" Or map each action separately
+nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
+nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
-" Integrate Ale in airline
-let g:airline#extensions#ale#enabled = 1
 
-" nmap <silent> [ <Plug>(ale_previous_wrap)
-nmap <silent> <f8> <Plug>(ale_next_wrap)
 
 "-------------------------
 " Fugitive
@@ -135,46 +146,6 @@ let g:airline_section_y = ''
 
 " Don't display filetype
 let g:airline_section_x = ''
-
-
-
-"-------------------------
-" YouCompleteMe
-
-let g:ycm_semantic_triggers = {
-    \   'css': [ 're!^\s{4}', 're!:\s+' ],
-    \   'less': [ 're!^\s{4}', 're!:\s+' ]
-    \ }
-
-" Choose completion with tab
-let g:ycm_key_list_select_completion=["<tab>"]
-let g:ycm_key_list_previous_completion=["<S-tab>"]
-
-let g:ycm_filepath_blacklist = {
-    \ 'jsx': 1,
-    \ 'typescript': 1,
-    \ 'html': 1,
-    \ 'xml': 1
-    \}
-
-" Since we use ale already
-let g:ycm_show_diagnostics_ui = 0
-
-" Go to type definition/declaration
-nmap <silent> gd :YcmCompleter GoTo<CR>
-
-" Show all references to variable under coursor
-nmap <silent> <leader>gr :YcmCompleter GoToReferences<CR>
-
-" Show type of variable under cursor
-nmap <silent> <leader>gt :YcmCompleter GetType<CR>
-
-" Show docs for entity under cursor
-nmap <silent> <leader>dc :YcmCompleter GetDoc<CR>
-
-" Refactor smart rename, space at the end are important :)
-nmap <leader>rr :YcmCompleter RefactorRename 
-
 
 "-------------------------
 " NERDTree
@@ -241,7 +212,8 @@ set title
 set splitbelow
 
 " Hide preview window for completion
-set completeopt-=preview
+" set completeopt-=preview
+set completeopt=menu,noinsert
 
 " Mute error bell
 set novisualbell
@@ -427,28 +399,28 @@ set diffopt+=horizontal
 " Ignore changes in whitespaces characters
 set diffopt+=iwhite
 
-"--------------------------------------------------
-" Hotkeys
+"-------------------------------------------------- Hotkeys
 
 " Open new tab
-nmap <silent><leader>to :tabnew .<CR>
-
-" Replace
-nmap <leader>s :%s//<left>
-vmap <leader>s :s//<left>
+nnoremap <silent><leader>to :tabnew .<CR>
 
 " Moving between splits
-nmap <Right> gt
-nmap <Left> gT
-nmap <S-Right> <C-w>w
-nmap <S-Left> <C-w>h
-nmap <leader>q :q <CR>
-nmap <leader>w :w <CR>
-nmap <f2> :Rg <CR>
-nmap <C-j> <C-d>
-nmap <C-k> <C-u>
-nmap j gj
-nmap k gk
+nnoremap <S-H> gt 
+nnoremap <S-L> gT 
+nnoremap gw <C-w> 
+nnoremap gl <C-w>w
+
+nnoremap <S-J> <C-d>
+nnoremap <S-K> <C-u>
+
+nnoremap <silent><leader>q :q<CR>
+nnoremap <silent><leader>w :w<CR>
+
+
+nnoremap <f3> :Rg <CR>
+
+nnoremap j gj
+nnoremap k gk
 
 
 
@@ -476,7 +448,6 @@ if has("autocmd")
         au FileType scss set ft=scss.css
         au FileType less set ft=less.css
         au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
-        au BufRead,BufNewFile *.js set ft=javascript
         au BufRead,BufNewFile *.json set ft=json
         " Execute python \ -mjson.tool for autoformatting *.json
         au BufRead,BufNewFile *.bemhtml set ft=javascript
@@ -484,7 +455,11 @@ if has("autocmd")
         au BufRead,BufNewFile *.xjst set ft=javascript
         au BufRead,BufNewFile *.tt2 set ft=tt2
         au BufRead,BufNewFile *.plaintex set ft=plaintex.tex
-        autocmd BufNewFile,BufRead *.tsx,*.jsx set filetype=typescript.tsx
+        autocmd BufNewFile,BufRead *.ts set filetype=typescript
+        autocmd BufNewFile,BufRead *.tsx set filetype=typescript
+        autocmd BufNewFile,BufRead *.jsx set filetype=typescript
+        autocmd BufNewFile,BufRead *.js set filetype=typescript
+        au BufRead,BufNewFile *.go set ft=go
 
 
         " Auto close preview window, it uses with tags,
@@ -492,17 +467,10 @@ if has("autocmd")
         autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
         autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
-        " Enable omni completion.
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType typescript setlocal omnifunc=typescriptcomlete#CompleteTS
-
         " Disable vertical line at max string length in NERDTree
         autocmd FileType * setlocal colorcolumn=+1
         autocmd FileType nerdtree setlocal colorcolumn=""
 
     " Group end
     augroup END
-
 endif
