@@ -1,5 +1,11 @@
 
-# __目标__
+# tmux
+
+`ln -s .tmux.conf ~`
+
+# vim
+
+## __目标__
 主要用vim读代码, 不写代码; 还是不习惯里边的插件的操作;
 
 * vimawesome - 
@@ -8,7 +14,7 @@
 研究下这个
 * https://github.com/inter-action/jarvis
 
-# install python3
+## install python3
 ```
 sudo mkdir /usr/local/Frameworks
 sudo chown $(whoami):admin /usr/local/Frameworks
@@ -18,10 +24,10 @@ python3 get-pip.py
 pip3 install pynvim
 ```
 
-# install cmake
+## install cmake
 `brew install cmake`
 
-# install plugvim
+## install plugvim
 
 ```bash
 curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -39,26 +45,26 @@ python3 install.py --ts-completer
 ```
 
 
-# 颜色
+## 颜色
 
 在iterm中调节下颜色tab中的对比度;
 
 
-# search & replacement
+## search & replacement
 ` $ brew install ripgrep `
 
 * ripgrep user guide - https://github.com/BurntSushi/ripgrep/blob/master/GUIDE.md
 * https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
 * vim, fzf - https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
 
-# 前置条件
+## 前置条件
 
 ```
 brew install fzf
 brew install fd
 ```
 
-# completion
+## completion
 
 
 有几种方式
@@ -87,15 +93,17 @@ brew install fd
 * !A guide to modern Web Development with (Neo)vim - https://www.freecodecamp.org/news/a-guide-to-modern-web-development-with-neo-vim-333f7efbf8e2/
 
 
-# rust.vim
+## rust.vim
 
 https://github.com/rust-lang/rust.vim
 
 
-# change default git editor
+## change default git editor
 `git config --global core.editor "nvim"`
 
-# install 
+## install 
+
 ```
 git clone <this git repo> && ln -s ~/vim-config/.vimrc ~/
 ```
+

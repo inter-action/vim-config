@@ -407,13 +407,11 @@ set diffopt+=iwhite
 nnoremap <silent><leader>to :tabnew .<CR>
 
 " Moving between splits
-nnoremap <S-H> gt 
-nnoremap <S-L> gT 
+nnoremap <S-L> gt 
+nnoremap <S-H> gT 
 nnoremap gw <C-w> 
 nnoremap gl <C-w>w
 
-nnoremap <S-J> <C-d>
-nnoremap <S-K> <C-u>
 nnoremap <C-P> :Files<CR>
 
 nnoremap <silent><leader>q :q<CR>
