@@ -1,5 +1,6 @@
 
 # tmux
+`.tmux.conf.local` 这个文件没咋用, 放那里以备
 
 `ln -s .tmux.conf ~`
 
