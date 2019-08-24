@@ -156,7 +156,9 @@ let NERDTreeShowHidden=1
 let NERDTreeMinimalUI=1
 
 " Display current file in the NERDTree ont the left
-nmap <silent> <leader>f :NERDTreeFind<CR>
+nnoremap <silent> <leader>nf :NERDTreeFind<CR>
+nnoremap <silent> <leader>nn :NERDTreeToggle<CR>
+
 
 "--------------------------------------------------
 " General options
@@ -407,9 +409,10 @@ set diffopt+=iwhite
 nnoremap <silent><leader>to :tabnew .<CR>
 
 " Moving between splits
-nnoremap <S-L> gt 
-nnoremap <S-H> gT 
-nnoremap gw <C-w> 
+nnoremap <S-L> gt
+nnoremap <S-H> gT
+nnoremap gw <nop>
+nnoremap gw <C-w>
 nnoremap gl <C-w>w
 
 nnoremap <C-P> :Files<CR>
@@ -478,7 +481,15 @@ if has("autocmd")
         " Disable vertical line at max string length in NERDTree
         autocmd FileType * setlocal colorcolumn=+1
         autocmd FileType nerdtree setlocal colorcolumn=""
+        
+        " nerdtree config, https://github.com/scrooloose/nerdtree
+        autocmd StdinReadPre * let s:std_in=1
+        autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-    " Group end
+
+
+        " Group end
     augroup END
 endif
