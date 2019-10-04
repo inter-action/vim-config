@@ -55,6 +55,7 @@ let g:deoplete#enable_at_startup = 1
 
 Plug 'jiangmiao/auto-pairs'
 
+Plug 'MattesGroeger/vim-bookmarks'
 " Initialize plugin system
 call plug#end()
 
@@ -159,6 +160,20 @@ let NERDTreeMinimalUI=1
 nnoremap <silent> <leader>nf :NERDTreeFind<CR>
 nnoremap <silent> <leader>nn :NERDTreeToggle<CR>
 
+
+"-------------------------
+" vim-bookmarks
+let g:bookmark_no_default_key_mappings = 1
+nmap <Leader>m <Plug>BookmarkToggle
+" nmap <Leader>i <Plug>BookmarkAnnotate
+nmap <Leader>l <Plug>BookmarkShowAll
+" nmap <Leader>j <Plug>BookmarkNext
+" nmap <Leader>k <Plug>BookmarkPrev
+" nmap <Leader>c <Plug>BookmarkClear
+" nmap <Leader>x <Plug>BookmarkClearAll
+" nmap <Leader>kk <Plug>BookmarkMoveUp
+" nmap <Leader>jj <Plug>BookmarkMoveDown
+" nmap <Leader>g <Plug>BookmarkMoveToLine
 
 "--------------------------------------------------
 " General options
@@ -434,6 +449,22 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " inoremap <C-x> <Esc>ddi
 
+
+" Quickfix window
+" https://vim.fandom.com/wiki/Toggle_to_open_or_close_the_quickfix_window
+command -bang -nargs=? QFix call QFixToggle(<bang>0)
+function! QFixToggle(forced)
+  if exists("g:qfix_win") && a:forced == 0
+    cclose
+    unlet g:qfix_win
+  else
+    copen 10
+    let g:qfix_win = bufnr("$")
+  endif
+endfunction
+
+nmap <silent> \` :QFix<CR>
+" end Quickfix window
 
 "--------------------------------------------------
 " Autocmd
