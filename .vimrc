@@ -431,6 +431,7 @@ nnoremap gw <C-w>
 nnoremap gl <C-w>w
 
 nnoremap <C-P> :Files<CR>
+" nnoremap <M-B>p :Buffers<CR>
 
 nnoremap <silent><leader>q :q<CR>
 nnoremap <silent><leader>w :w<CR>
@@ -452,7 +453,7 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " Quickfix window
 " https://vim.fandom.com/wiki/Toggle_to_open_or_close_the_quickfix_window
-command -bang -nargs=? QFix call QFixToggle(<bang>0)
+command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
     cclose
