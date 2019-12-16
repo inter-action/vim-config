@@ -1,6 +1,8 @@
 
 # tmux
 `.tmux.conf.local` 这个文件没咋用, 放那里以备
+  
+  * tmux 主题包: https://github.com/jimeh/tmux-themepack
 
 `ln -s .tmux.conf ~`
 
