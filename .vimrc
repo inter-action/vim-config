@@ -20,6 +20,8 @@ call plug#begin('~/.vim/plugged')
 
 " Make sure you use single quotes
 Plug 'flazz/vim-colorschemes'
+" Tomorrow, Tomorrow-Night
+
 Plug 'tpope/vim-fugitive'
 Plug 'tpope/vim-surround'
 Plug 'scrooloose/nerdtree'
@@ -116,8 +118,9 @@ nmap <silent> <leader>gcf :Gcommit -a --amend<cr>
 " Set highlighting for colorcolumn
 highlight ColorColumn ctermbg=lightGrey
 
-colorscheme tender
-set background=dark
+" Tomorrow, Tomorrow-Night, monokain
+colorscheme Tomorrow-Night
+" set background=dark
 
 
 "-------------------------
@@ -219,6 +222,9 @@ endif
 
 "--------------------------------------------------
 " Display options
+
+" 启用truecolor rendering
+set termguicolors
 
 " Hide showmode
 " Showmode is useless with airline
@@ -450,7 +456,6 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 " inoremap <C-x> <Esc>ddi
 
-
 " Quickfix window
 " https://vim.fandom.com/wiki/Toggle_to_open_or_close_the_quickfix_window
 command! -bang -nargs=? QFix call QFixToggle(<bang>0)
@@ -527,3 +532,54 @@ if has("autocmd")
         " Group end
     augroup END
 endif
+
+
+"--------------------------------------------------
+" Autocmd
+let loaded_switchcolor = 1
+
+let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
+let s:swcolors = map(paths, 'fnamemodify(v:val, ":t:r")')
+let s:swskip = [ '256-jungle', '3dglasses', 'calmar256-light', 'coots-beauty-256', 'grb256' ]
+let s:swback = 0    " background variants light/dark was not yet switched
+let s:swindex = 0
+
+function! SwitchColor(swinc)
+
+	" if have switched background: dark/light
+	if (s:swback == 1)
+		let s:swback = 0
+		let s:swindex += a:swinc
+		let i = s:swindex % len(s:swcolors)
+
+		" in skip list
+		if (index(s:swskip, s:swcolors[i]) == -1)
+			execute "colorscheme " . s:swcolors[i]
+		else
+			return SwitchColor(a:swinc)
+		endif
+
+	else
+		let s:swback = 1
+		if (&background == "light")
+			execute "set background=dark"
+		else
+			execute "set background=light"
+		endif
+
+		" roll back if background is not supported
+		if (!exists('g:colors_name'))
+			return SwitchColor(a:swinc)
+		endif
+	endif
+
+	" show current name on screen. :h :echo-redraw
+	redraw
+	execute "colorscheme"
+endfunction
+
+ map <F8>        :call SwitchColor(1)<CR>
+imap <F8>   <Esc>:call SwitchColor(1)<CR>
+
+ map <S-F8>      :call SwitchColor(-1)<CR>
+imap <S-F8> <Esc>:call SwitchColor(-1)<CR>

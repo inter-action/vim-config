@@ -1,3 +1,9 @@
+## install 
+
+```
+git clone <this git repo> && ln -s ~/vim-config/.vimrc ~/
+```
+
 
 # tmux
 `.tmux.conf.local` 这个文件没咋用, 放那里以备
@@ -19,11 +25,6 @@
 
 ## install python3
 ```
-sudo mkdir /usr/local/Frameworks
-sudo chown $(whoami):admin /usr/local/Frameworks
-brew install python3
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python3 get-pip.py
 pip3 install pynvim
 ```
 
@@ -32,19 +33,10 @@ pip3 install pynvim
 
 ## install plugvim
 
-```bash
+```
 curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-```
-
-`:PlugInstall`
-
-youcompleteme
-
-会在这步失败; golang 被墙所以下载的时候会出问题; 如果有ss, `copy http proxy shell export line` 到 terminal 中
-```
-cd ~/.vim/plugged/youcompleteme
-python3 install.py --ts-completer
+:PlugInstall
 ```
 
 
@@ -66,6 +58,16 @@ python3 install.py --ts-completer
 brew install fzf
 brew install fd
 ```
+
+## rust.vim
+
+https://github.com/rust-lang/rust.vim
+
+
+## change default git editor
+`git config --global core.editor "nvim"`
+
+
 
 ## completion
 
@@ -94,19 +96,4 @@ brew install fd
       ```
 
 * !A guide to modern Web Development with (Neo)vim - https://www.freecodecamp.org/news/a-guide-to-modern-web-development-with-neo-vim-333f7efbf8e2/
-
-
-## rust.vim
-
-https://github.com/rust-lang/rust.vim
-
-
-## change default git editor
-`git config --global core.editor "nvim"`
-
-## install 
-
-```
-git clone <this git repo> && ln -s ~/vim-config/.vimrc ~/
-```
 
