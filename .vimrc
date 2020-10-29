@@ -52,12 +52,19 @@ Plug 'autozimu/LanguageClient-neovim', {
 Plug '/usr/local/opt/fzf' 
 Plug 'junegunn/fzf.vim'
 
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-let g:deoplete#enable_at_startup = 1
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" let g:deoplete#enable_at_startup = 1
 
 Plug 'jiangmiao/auto-pairs'
 
 Plug 'MattesGroeger/vim-bookmarks'
+
+Plug 'vimwiki/vimwiki'
+let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
+  \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'},
+  \ {'path': '~/workspace/lunr.js/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
+  \ ]
+                      
 " Initialize plugin system
 call plug#end()
 
@@ -65,6 +72,9 @@ call plug#end()
 "--------------------------------------------------
 " Bundles Settings
 syntax on
+
+" vim wiki suggested setting
+filetype plugin on
 
 
 "-------------------------
@@ -535,7 +545,7 @@ endif
 
 
 "--------------------------------------------------
-" Autocmd
+" SwitchColor
 let loaded_switchcolor = 1
 
 let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
@@ -583,3 +593,4 @@ imap <F8>   <Esc>:call SwitchColor(1)<CR>
 
  map <S-F8>      :call SwitchColor(-1)<CR>
 imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
+
