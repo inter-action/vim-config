@@ -479,7 +479,7 @@ function! QFixToggle(forced)
   endif
 endfunction
 
-nmap <silent> \` :QFix<CR>
+nmap <F4> :QFix<CR>
 " end Quickfix window
 
 "--------------------------------------------------
@@ -588,9 +588,9 @@ function! SwitchColor(swinc)
 	execute "colorscheme"
 endfunction
 
- map <F8>        :call SwitchColor(1)<CR>
+nmap <F8>        :call SwitchColor(1)<CR>
 imap <F8>   <Esc>:call SwitchColor(1)<CR>
 
- map <S-F8>      :call SwitchColor(-1)<CR>
+nmap <S-F8>      :call SwitchColor(-1)<CR>
 imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
 
