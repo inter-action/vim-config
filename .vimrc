@@ -62,7 +62,7 @@ Plug 'MattesGroeger/vim-bookmarks'
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
   \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'},
-  \ {'path': '~/workspace/lunr.js/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
+  \ {'path': '~/workspace/js/lunr.js/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
   \ ]
                       
 " Initialize plugin system
@@ -440,8 +440,9 @@ set diffopt+=iwhite
 nnoremap <silent><leader>to :tabnew .<CR>
 
 " Moving between splits
-nnoremap <S-L> gt
 nnoremap <S-H> gT
+nnoremap <S-L> gt
+
 nnoremap gw <nop>
 nnoremap gw <C-w>
 nnoremap gl <C-w>w
