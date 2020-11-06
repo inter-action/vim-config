@@ -50,6 +50,7 @@ Plug 'autozimu/LanguageClient-neovim', {
 " (Optional) Multi-entry selection UI.
 " install fzf with home brew
 Plug '/usr/local/opt/fzf' 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
 
 " Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
@@ -440,8 +441,8 @@ set diffopt+=iwhite
 nnoremap <silent><leader>to :tabnew .<CR>
 
 " Moving between splits
-nnoremap <S-H> gT
-nnoremap <S-L> gt
+nnoremap <C-Left> gT
+nnoremap <C-Right> gt
 
 nnoremap gw <nop>
 nnoremap gw <C-w>
