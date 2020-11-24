@@ -100,6 +100,20 @@ nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
 nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
 
 
+"-------------------------
+" fzf
+" file history
+nmap <silent> <leader>fh :History<cr>
+" commands history
+nmap <silent> <leader>fhc :History:<cr>
+" commands 
+nmap <silent> <leader>fc :Commands<cr>
+" marks 
+nmap <silent> <leader>fm :Marks<cr>
+" search history
+" nmap <silent> <leader>fhs :History/<cr>
+nmap <silent> <leader>fw :Windows<cr>
+
 
 
 "-------------------------
@@ -130,7 +144,9 @@ nmap <silent> <leader>gcf :Gcommit -a --amend<cr>
 highlight ColorColumn ctermbg=lightGrey
 
 " Tomorrow, Tomorrow-Night, monokain
-colorscheme Tomorrow-Night
+" colorscheme Tomorrow-Night
+colorscheme Tomorrow-Night-Eighties
+
 " set background=dark
 
 
@@ -201,6 +217,9 @@ nmap <Leader>l <Plug>BookmarkShowAll
 " Buffer will be hidden instead of closed when no one display it
 "set hidden
 
+" enlong the leader key combination typing
+set timeoutlen=2000
+
 " Auto reload changed files
 set autoread
 
@@ -226,7 +245,7 @@ if &modifiable
 endif
 
 " Enable Tcl interface. Not sure what is exactly mean.
-" set infercase
+" hset infercase
 
 " Interprete all files like binary and disable many features.
 " set binary
@@ -438,7 +457,7 @@ set diffopt+=iwhite
 "-------------------------------------------------- Hotkeys
 
 " Open new tab
-nnoremap <silent><leader>to :tabnew .<CR>
+" nnoremap <silent><leader>tn :tabnew .<CR>
 
 " Moving between splits
 nnoremap <C-Left> gT
@@ -454,8 +473,8 @@ nnoremap <C-P> :Files<CR>
 nnoremap <silent><leader>q :q<CR>
 nnoremap <silent><leader>w :w<CR>
 
-
-nnoremap <f3> :Rg <CR>
+" yank to system clipboard
+vnoremap <silent><leader>y "+y<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -483,6 +502,7 @@ endfunction
 
 nmap <F4> :QFix<CR>
 " end Quickfix window
+
 
 "--------------------------------------------------
 " Autocmd
