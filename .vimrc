@@ -504,6 +504,14 @@ nmap <F4> :QFix<CR>
 " end Quickfix window
 
 
+" Quickfix window size
+" https://vim.fandom.com/wiki/Automatically_fitting_a_quickfix_window_height
+au FileType qf call AdjustWindowHeight(5, 23)
+function! AdjustWindowHeight(minheight, maxheight)
+  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
+endfunction
+" end Quickfix window size
+
 "--------------------------------------------------
 " Autocmd
 

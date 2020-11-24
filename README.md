@@ -1,5 +1,8 @@
 ## install 
 
+
+个人vim中应用的比较多的是fzf和ripgrep, 这是我自己高效应用vim的核心. 所以一定先熟悉 fzf 配置和 ripgrep 语法
+
 ```
 git clone <this git repo> && ln -s ~/vim-config/.vimrc ~/
 ```
