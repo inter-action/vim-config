@@ -66,6 +66,9 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
   \ {'path': '~/workspace/js/lunr.js/vimwiki', 'syntax': 'markdown', 'ext': '.md'},
   \ ]
                       
+
+Plug 'sirver/ultisnips'
+
 " Initialize plugin system
 call plug#end()
 
@@ -147,7 +150,7 @@ highlight ColorColumn ctermbg=lightGrey
 " colorscheme Tomorrow-Night
 colorscheme Tomorrow-Night-Eighties
 
-" set background=dark
+set background=dark
 
 
 "-------------------------
@@ -175,7 +178,7 @@ let g:airline#extensions#tabline#fnamemod = ':t'
 let g:airline_section_y = ''
 
 " Don't display filetype
-let g:airline_section_x = ''
+" let g:airline_section_x = ''
 
 "-------------------------
 " NERDTree
@@ -216,6 +219,10 @@ nmap <Leader>l <Plug>BookmarkShowAll
 
 " Buffer will be hidden instead of closed when no one display it
 "set hidden
+"
+
+" enable mouse support for window
+set mouse=a
 
 " enlong the leader key combination typing
 set timeoutlen=2000
