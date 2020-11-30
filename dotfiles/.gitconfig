@@ -12,3 +12,6 @@
     commit-decoration-style = bold yellow box ul
     file-style = bold yellow ul
     file-decoration-style = none
+[user]
+	email = 243127395@qq.com
+	name = interaction
