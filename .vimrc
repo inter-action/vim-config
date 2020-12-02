@@ -18,22 +18,41 @@ endif
 " - Avoid using standard Vim directory names like 'plugin'
 call plug#begin('~/.vim/plugged')
 
+":: vim enhancement
+Plug 'editorconfig/editorconfig-vim'
+Plug 'easymotion/vim-easymotion'
+
+" fzf
+" (Optional) Multi-entry selection UI.
+" install fzf with home brew
+Plug '/usr/local/opt/fzf' 
+Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf.vim'
+
+
+
+Plug 'jiangmiao/auto-pairs'
+Plug 'MattesGroeger/vim-bookmarks'
+Plug 'sirver/ultisnips'
+
+
+":: GUI enhancement
+Plug 'machakann/vim-highlightedyank'
+Plug 'itchyny/lightline.vim'
+
+Plug 'tpope/vim-fugitive'
+
+Plug 'tpope/vim-surround'
+
+Plug 'scrooloose/nerdtree'
+
+Plug 'rust-lang/rust.vim'
+
 " Make sure you use single quotes
 Plug 'flazz/vim-colorschemes'
 " Tomorrow, Tomorrow-Night
 
-Plug 'tpope/vim-fugitive'
-Plug 'tpope/vim-surround'
-Plug 'scrooloose/nerdtree'
-Plug 'rust-lang/rust.vim'
 
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-Plug 'easymotion/vim-easymotion'
-
-Plug 'jremmen/vim-ripgrep'
-let g:rg_command = 'rg --vimgrep -S'
 
 " syntax
 Plug 'pangloss/vim-javascript'
@@ -41,24 +60,7 @@ Plug 'leafgarland/typescript-vim'
 let g:typescript_indent_disable = 1
 Plug 'peitalin/vim-jsx-typescript'
 
-" LSP
-Plug 'autozimu/LanguageClient-neovim', {
-    \ 'branch': 'next',
-    \ 'do': 'bash install.sh',
-    \ }
 
-" (Optional) Multi-entry selection UI.
-" install fzf with home brew
-Plug '/usr/local/opt/fzf' 
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" let g:deoplete#enable_at_startup = 1
-
-Plug 'jiangmiao/auto-pairs'
-
-Plug 'MattesGroeger/vim-bookmarks'
 
 Plug 'vimwiki/vimwiki'
 let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
@@ -67,7 +69,9 @@ let g:vimwiki_list = [{'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'}
   \ ]
                       
 
-Plug 'sirver/ultisnips'
+" LSP
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
 
 " Initialize plugin system
 call plug#end()
@@ -77,30 +81,92 @@ call plug#end()
 " Bundles Settings
 syntax on
 
+
+"-------------------------
+" sirver/ultisnips
+
+let g:UltiSnipsExpandTrigger = '<c-tab>'
+
+
+
+
+"-------------------------
+" Lightline
+let g:lightline = {
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'filename': 'LightlineFilename',
+      \   'cocstatus': 'coc#status'
+      \ },
+      \ }
+function! LightlineFilename()
+  return expand('%:t') !=# '' ? @% : '[No Name]'
+endfunction
+
 " vim wiki suggested setting
 filetype plugin on
 
 
+
+
 "-------------------------
-" LSP
+" vim-highlightedyank
+let g:highlightedyank_highlight_duration = 250
+
+
+
+"-------------------------
+" coc start
 "
-" Required for operations modifying multiple buffers like rename.
-set hidden
+" Use `:CocDiagnostics` to get all diagnostics of current buffer in location list.
+nmap <silent> <F8> <Plug>(coc-diagnostic-next)
+nmap <silent> <S-F8> <Plug>(coc-diagnostic-prev)
 
-let g:LanguageClient_serverCommands = {
-    \ 'javascript': ['typescript-language-server', '--stdio'],
-    \ 'typescript': ['typescript-language-server', '--stdio'],
-    \ 'typescript.tsx': ['typescript-language-server', '--stdio'],
-    \ 'rust': ['~/.cargo/bin/rustup', 'run', 'stable', 'rls'],
-    \ 'go': ['~/go/bin/go-langserver'],
-    \ }
+" GoTo code navigation.
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
 
-nnoremap <F5> :call LanguageClient_contextMenu()<CR>
-" Or map each action separately
-nnoremap <silent> gh :call LanguageClient#textDocument_hover()<CR>
-nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
-nnoremap <silent> gr :call LanguageClient#textDocument_references()<CR>
-nnoremap <silent> <F2> :call LanguageClient#textDocument_rename()<CR>
+" Use K to show documentation in preview window.
+nnoremap <silent> K :call <SID>show_documentation()<CR>
+function! s:show_documentation()
+  if (index(['vim','help'], &filetype) >= 0)
+    execute 'h '.expand('<cword>')
+  elseif (coc#rpc#ready())
+    call CocActionAsync('doHover')
+  else
+    execute '!' . &keywordprg . " " . expand('<cword>')
+  endif
+endfunction
+
+" Symbol renaming.
+nmap <f2> <Plug>(coc-rename)
+
+
+
+" Use <c-.> to trigger completion.
+inoremap <silent><expr> <c-.> coc#refresh()
+
+nnoremap <silent> <space>a  :CocAction<cr>
+
+
+" 'Smart' nevigation
+" Use tab for trigger completion with characters ahead and navigate.
+" NOTE: Use command ':verbose imap <tab>' to make sure tab is not mapped by
+" other plugin before putting this into your config.
+inoremap <silent><expr> <TAB>
+      \ pumvisible() ? "\<C-n>" :
+      \ <SID>check_back_space() ? "\<TAB>" :
+      \ coc#refresh()
+
+function! s:check_back_space() abort
+  let col = col('.') - 1
+  return !col || getline('.')[col - 1]  =~# '\s'
+endfunction
 
 
 "-------------------------
@@ -117,6 +183,7 @@ nmap <silent> <leader>fm :Marks<cr>
 " nmap <silent> <leader>fhs :History/<cr>
 nmap <silent> <leader>fw :Windows<cr>
 
+nnoremap <C-P> :Files<CR>
 
 let g:fzf_colors =
 \ { 'fg':      ['fg', 'Normal'],
@@ -167,33 +234,6 @@ colorscheme Tomorrow-Night-Eighties
 
 set background=dark
 
-
-"-------------------------
-" vim-airline
-
-" Colorscheme for airline
-let g:airline_theme='understated'
-
-" Set custom left separator
-let g:airline_left_sep = '▶'
-
-" Set custom right separator
-let g:airline_right_sep = '◀'
-
-" Enable airline for tab-bar
-let g:airline#extensions#tabline#enabled = 1
-
-" Don't display buffers in tab-bar with single tab
-let g:airline#extensions#tabline#show_buffers = 0
-
-" Display only filename in tab
-let g:airline#extensions#tabline#fnamemod = ':t'
-
-" Don't display encoding
-let g:airline_section_y = ''
-
-" Don't display filetype
-" let g:airline_section_x = ''
 
 "-------------------------
 " NERDTree
@@ -292,6 +332,7 @@ set splitbelow
 " set completeopt-=preview
 set completeopt=menu,noinsert
 
+
 " Mute error bell
 set novisualbell
 
@@ -302,8 +343,9 @@ set shortmess=atI
 " Enable display whitespace characters
 set list
 
-" Setting up how to display whitespace characters
-set listchars=tab:⇥\ ,trail:·,extends:⋯,precedes:⋯,nbsp:~
+" Show those damn hidden characters
+" Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
+set listchars=nbsp:¬,extends:»,precedes:«,trail:•
 
 " Wrap line only on characters in breakat list like ^I!@*-+;:,./?
 " Useless with nowrap
@@ -334,14 +376,6 @@ set showcmd
 " Indicate that last window have a statusline too
 set laststatus=2
 
-" Add a line / column display in the bottom right-hand section of the screen.
-" Not needed with airline plugin
-"set ruler
-
-" Setting up right-hand section(ruller) format
-" Not needed with airline plugin
-"set rulerformat=%30(%=\:%y%m%r%w\ %l,%c%V\ %P%)
-
 " The cursor should stay where you leave it, instead of moving to the first non
 " blank of the line
 set nostartofline
@@ -371,7 +405,7 @@ set colorcolumn=+1
 set autoindent
 
 " Enable smart indent. It add additional indents whe necessary
-set smartindent
+" set smartindent
 
 " Replace tabs with spaces
 set expandtab
@@ -380,13 +414,13 @@ set expandtab
 set smarttab
 
 " Number of spaces to use for each step of indent
-set shiftwidth=2
+set shiftwidth=4
 
 " Number of spaces that a Tab in the file counts for
-set tabstop=2
+set tabstop=4
 
 " but in most cases tabstop and softtabstop better be the same
-set softtabstop=2
+set softtabstop=4
 
 " Round indent to multiple of 'shiftwidth'.
 " Indentation always be multiple of shiftwidth
@@ -417,14 +451,25 @@ nnoremap <silent> <cr> :nohlsearch<cr><cr>
 " Show matching brackets
 set showmatch
 
+" Search results centered please
+nnoremap <silent> n nzz
+nnoremap <silent> N Nzz
+nnoremap <silent> * *zz
+nnoremap <silent> # #zz
+nnoremap <silent> g* g*zz
+
+" Very magic by default
+nnoremap ? ?\v
+nnoremap / /\v
+cnoremap %s/ %sm/
+
 "--------------------------------------------------
 " Wildmenu
 
-" Extended autocompletion for commands
 set wildmenu
+set wildmode=list:longest
+set wildignore=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp,publish/*,intermediate/*,*.o,*.hi,Zend,vendor
 
-" Autocmpletion hotkey
-set wildcharm=<TAB>
 
 "--------------------------------------------------
 " Folding
@@ -476,10 +521,12 @@ set diffopt+=horizontal
 " Ignore changes in whitespaces characters
 set diffopt+=iwhite
 
-"-------------------------------------------------- Hotkeys
 
-" Open new tab
-" nnoremap <silent><leader>tn :tabnew .<CR>
+"--------------------------------------------------
+" Navigate Options
+
+map H ^
+map L $
 
 " Moving between splits
 nnoremap <C-Left> gT
@@ -489,9 +536,13 @@ nnoremap gw <nop>
 nnoremap gw <C-w>
 nnoremap gl <C-w>w
 
-nnoremap <C-P> :Files<CR>
-" nnoremap <M-B>p :Buffers<CR>
+"-------------------------------------------------- 
+" personal options
 
+
+" Open new tab
+
+" quit & write
 nnoremap <silent><leader>q :q<CR>
 nnoremap <silent><leader>w :w<CR>
 
@@ -501,16 +552,61 @@ vnoremap <silent><leader>y "+y<CR>
 nnoremap j gj
 nnoremap k gk
 
+" search currenet selection
+vnoremap // y:Rg -e <C-R>=escape(@", '/\/(/)')<CR><CR>
+
+" completion popup behaviour
 " https://unix.stackexchange.com/questions/162528/select-an-item-in-vim-autocomplete-list-without-inserting-line-break
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
-" inoremap <C-x> <Esc>ddi
 
+
+
+"-------------------------------------------------- 
+" Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
+"
+
+" from http://sheerun.net/2014/03/21/how-to-boost-your-vim-productivity/
+if executable('ag')
+	set grepprg=ag\ --nogroup\ --nocolor
+endif
+if executable('rg')
+	set grepprg=rg\ --no-heading\ --vimgrep
+	set grepformat=%f:%l:%c:%m
+endif
+
+":: <leader>s for Rg search
+noremap <leader>s :Rg <CR>
+
+let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
+" let g:fzf_layout = { 'down': '~20%' }
+command! -bang -nargs=* Rg
+  \ call fzf#vim#grep(
+  \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
+  \   <bang>0 ? fzf#vim#with_preview('up:60%')
+  \           : fzf#vim#with_preview('right:50%:hidden', '?'),
+  \   <bang>0)
+
+function! s:list_cmd()
+  let base = fnamemodify(expand('%'), ':h:.:S')
+  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+endfunction
+
+command! -bang -nargs=? -complete=dir Files
+  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+  \                               'options': '--tiebreak=index'}, <bang>0)
+
+
+
+
+"--------------------------------------------------
 " Quickfix window
 " https://vim.fandom.com/wiki/Toggle_to_open_or_close_the_quickfix_window
+nmap <F4> :QFix<CR>
+
 command! -bang -nargs=? QFix call QFixToggle(<bang>0)
 function! QFixToggle(forced)
   if exists("g:qfix_win") && a:forced == 0
@@ -522,127 +618,68 @@ function! QFixToggle(forced)
   endif
 endfunction
 
-nmap <F4> :QFix<CR>
-" end Quickfix window
 
 
+"--------------------------------------------------
 " Quickfix window size
 " https://vim.fandom.com/wiki/Automatically_fitting_a_quickfix_window_height
 au FileType qf call AdjustWindowHeight(5, 23)
 function! AdjustWindowHeight(minheight, maxheight)
   exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
 endfunction
-" end Quickfix window size
+
 
 "--------------------------------------------------
 " Autocmd
 
-" It executes specific command when specific events occured
-" like reading or writing file, or open or close buffer
+" Jump to last edit position on opening file
 if has("autocmd")
-    " Define group of commands,
-    " Commands defined in .vimrc don't bind twice if .vimrc will reload
-    augroup vimrc
-    " Delete any previously defined autocommands
-    au!
-        " Auto reload vim after your change it
-        au BufWritePost *.vim source $MYVIMRC | AirlineRefresh
-        au BufWritePost .vimrc source $MYVIMRC | AirlineRefresh
-
-        " Restore cursor position :help last-position-jump
-        au BufReadPost * if line("'\"") > 0 && line("'\"") <= line("$")
-          \| exe "normal g'\"" | endif
-
-        " Set filetypes aliases
-        au FileType htmldjango set ft=html.htmldjango
-        au FileType scss set ft=scss.css
-        au FileType less set ft=less.css
-        au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
-        au BufRead,BufNewFile *.json set ft=json
-        " Execute python \ -mjson.tool for autoformatting *.json
-        au BufRead,BufNewFile *.bemhtml set ft=javascript
-        au BufRead,BufNewFile *.bemtree set ft=javascript
-        au BufRead,BufNewFile *.xjst set ft=javascript
-        au BufRead,BufNewFile *.tt2 set ft=tt2
-        au BufRead,BufNewFile *.plaintex set ft=plaintex.tex
-        autocmd BufNewFile,BufRead *.ts set filetype=typescript
-        autocmd BufNewFile,BufRead *.tsx set filetype=typescript
-        autocmd BufNewFile,BufRead *.jsx set filetype=typescript
-        autocmd BufNewFile,BufRead *.js set filetype=typescript
-        au BufRead,BufNewFile *.go set ft=go
-
-
-        " Auto close preview window, it uses with tags,
-        " I don't use it
-        autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-        autocmd InsertLeave * if pumvisible() == 0|pclose|endif
-
-        " Disable vertical line at max string length in NERDTree
-        autocmd FileType * setlocal colorcolumn=+1
-        autocmd FileType nerdtree setlocal colorcolumn=""
-        
-        " nerdtree config, https://github.com/scrooloose/nerdtree
-        autocmd StdinReadPre * let s:std_in=1
-        autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-        autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
-
-        " auto save on focus lost
-        au FocusLost * silent! wa
-
-
-        " Group end
-    augroup END
+  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 endif
 
 
-"--------------------------------------------------
-" SwitchColor
-let loaded_switchcolor = 1
+" Set filetypes aliases
+au FileType scss set ft=scss.css
+au FileType less set ft=less.css
 
-let paths = split(globpath(&runtimepath, 'colors/*.vim'), "\n")
-let s:swcolors = map(paths, 'fnamemodify(v:val, ":t:r")')
-let s:swskip = [ '256-jungle', '3dglasses', 'calmar256-light', 'coots-beauty-256', 'grb256' ]
-let s:swback = 0    " background variants light/dark was not yet switched
-let s:swindex = 0
+" no syntax highlight for 1 million lines
+au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
 
-function! SwitchColor(swinc)
+" au BufRead,BufNewFile *.json set ft=json
+" autocmd BufNewFile,BufRead *.ts set filetype=typescript
 
-	" if have switched background: dark/light
-	if (s:swback == 1)
-		let s:swback = 0
-		let s:swindex += a:swinc
-		let i = s:swindex % len(s:swcolors)
 
-		" in skip list
-		if (index(s:swskip, s:swcolors[i]) == -1)
-			execute "colorscheme " . s:swcolors[i]
-		else
-			return SwitchColor(a:swinc)
-		endif
 
-	else
-		let s:swback = 1
-		if (&background == "light")
-			execute "set background=dark"
-		else
-			execute "set background=light"
-		endif
+" Disable vertical line at max string length in NERDTree
+autocmd FileType * setlocal colorcolumn=+1
+autocmd FileType nerdtree setlocal colorcolumn=""
 
-		" roll back if background is not supported
-		if (!exists('g:colors_name'))
-			return SwitchColor(a:swinc)
-		endif
-	endif
+" nerdtree config, https://github.com/scrooloose/nerdtree
+autocmd StdinReadPre * let s:std_in=1
+autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
+autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
-	" show current name on screen. :h :echo-redraw
-	redraw
-	execute "colorscheme"
+" auto save on focus lost
+au FocusLost * silent! wa
+
+" Use auocmd to force lightline update.
+autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
+
+
+" vim-easymotion disturbs diagnostics
+" https://github.com/neoclide/coc.nvim/issues/110
+let g:easymotion#is_active = 0
+function! EasyMotionCoc() abort
+  if EasyMotion#is_active()
+    let g:easymotion#is_active = 1
+    CocDisable
+  else
+    if g:easymotion#is_active == 1
+      let g:easymotion#is_active = 0
+      CocEnable
+    endif
+  endif
 endfunction
-
-nmap <F8>        :call SwitchColor(1)<CR>
-imap <F8>   <Esc>:call SwitchColor(1)<CR>
-
-nmap <S-F8>      :call SwitchColor(-1)<CR>
-imap <S-F8> <Esc>:call SwitchColor(-1)<CR>
-
+autocmd TextChanged,CursorMoved * call EasyMotionCoc()

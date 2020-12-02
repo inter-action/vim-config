@@ -17,11 +17,23 @@ git clone <this git repo> && ln -s ~/vim-config/.vimrc ~/
 
 # vim
 
+
+
+
 ## __目标__
 主要用vim读代码, 不写代码; 还是不习惯里边的插件的操作;
 
 * vimawesome - 
 
+
+# coc
+
+安装coc自己的插件
+
+`:CocInstall coc-json coc-tsserver `
+
+opens coc config file
+`:CocConfig`
 
 研究下这个
 * https://github.com/inter-action/jarvis
