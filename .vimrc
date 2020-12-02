@@ -34,7 +34,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'jiangmiao/auto-pairs'
 Plug 'MattesGroeger/vim-bookmarks'
 Plug 'sirver/ultisnips'
-
+Plug 'preservim/nerdcommenter'
 
 ":: GUI enhancement
 Plug 'machakann/vim-highlightedyank'
@@ -81,6 +81,11 @@ call plug#end()
 " Bundles Settings
 syntax on
 
+
+
+"-------------------------
+" preservim/nerdcommenter
+let g:NERDCreateDefaultMappings = 1
 
 "-------------------------
 " sirver/ultisnips
@@ -590,14 +595,14 @@ command! -bang -nargs=* Rg
   \           : fzf#vim#with_preview('right:50%:hidden', '?'),
   \   <bang>0)
 
-function! s:list_cmd()
-  let base = fnamemodify(expand('%'), ':h:.:S')
-  return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
-endfunction
-
-command! -bang -nargs=? -complete=dir Files
-  \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
-  \                               'options': '--tiebreak=index'}, <bang>0)
+" function! s:list_cmd()
+"   let base = fnamemodify(expand('%'), ':h:.:S')
+"   return base == '.' ? 'fd --type file --follow' : printf('fd --type file --follow | proximity-sort %s', shellescape(expand('%')))
+" endfunction
+" 
+" command! -bang -nargs=? -complete=dir Files
+"   \ call fzf#vim#files(<q-args>, {'source': s:list_cmd(),
+"   \                               'options': '--tiebreak=index'}, <bang>0)
 
 
 
