@@ -278,8 +278,7 @@ nmap <Leader>l <Plug>BookmarkShowAll
 "let mapleader = ','
 
 " Buffer will be hidden instead of closed when no one display it
-"set hidden
-"
+set hidden
 
 " enable mouse support for window
 set mouse=a
@@ -479,11 +478,12 @@ set wildignore=.hg,.svn,*~,*.png,*.jpg,*.gif,*.settings,Thumbs.db,*.min.js,*.swp
 "--------------------------------------------------
 " Folding
 
-set foldmethod=indent
+" set foldmethod=indent
+set foldmethod=syntax
 set nofoldenable
 
 " Keymap to toggle folds with space
-nmap <space> za
+nmap <F9> zA
 
 "--------------------------------------------------
 " Edit
@@ -563,12 +563,13 @@ vnoremap // y:Rg -e <C-R>=escape(@", '/\/(/)')<CR><CR>
 " completion popup behaviour
 " https://unix.stackexchange.com/questions/162528/select-an-item-in-vim-autocomplete-list-without-inserting-line-break
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
+" inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
 inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
 inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 
-
+" others
+nnoremap <tab> <c-w>w
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
