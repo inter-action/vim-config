@@ -83,32 +83,7 @@ https://github.com/rust-lang/rust.vim
 `git config --global core.editor "nvim"`
 
 
+## working with diff
+* https://vi.stackexchange.com/questions/625/how-do-i-use-vim-as-a-diff-tool/17552#17552?s=f9dae8da7254456bba4c27ce1c375abc
 
-## completion
-
-
-有几种方式
-* native 原生支持的
-    * 
-    ```
-    C-n 
-    C-p
-    :help ins-completion
-    ```
-
-    * Omni completion, 一种原生支持的 IntelliSense 的clone版
-
-* LSP - https://www.kieranbamforth.me/blog/vim-lsp.html
-    * Coc
-        * `:CocInstall coc-tsserver coc-eslint coc-json coc-prettier coc-css`
-        * https://github.com/neoclide/coc.nvim
-
-    * https://github.com/autozimu/LanguageClient-neovim
-    * https://www.kieranbamforth.me/blog/vim-lsp.html
-
-      ```
-      npm install -g typescript-language-server
-      ```
-
-* !A guide to modern Web Development with (Neo)vim - https://www.freecodecamp.org/news/a-guide-to-modern-web-development-with-neo-vim-333f7efbf8e2/
 

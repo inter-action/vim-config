@@ -333,7 +333,7 @@ endif
 " set binary
 
 "--------------------------------------------------
-" Display options
+" Display/View options
 
 " 启用truecolor rendering
 set termguicolors
@@ -537,7 +537,7 @@ set noeol
 set diffopt=filler
 
 " Open diff in horizontal buffer
-set diffopt+=horizontal
+set diffopt+=vertical
 
 " Ignore changes in whitespaces characters
 set diffopt+=iwhite
