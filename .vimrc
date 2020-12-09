@@ -608,6 +608,7 @@ nnoremap <s-tab> <c-w>w
 nnoremap <silent> <space>nt :tabnew<CR>
 " new vertical
 nnoremap <silent> <space>nv :vertical new<CR>
+nnoremap <silent> <space>z <c-z>
 
 
 "-------------------------------------------------- 
