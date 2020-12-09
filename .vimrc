@@ -1,3 +1,7 @@
+" debug map `:verbose imap <tab>`
+
+
+
 set t_Co=256
 
 " Auto installing NeoNeoBundle
@@ -21,6 +25,10 @@ call plug#begin('~/.vim/plugged')
 ":: vim enhancement
 Plug 'editorconfig/editorconfig-vim'
 Plug 'easymotion/vim-easymotion'
+
+
+Plug 'jremmen/vim-ripgrep'
+" let g:rg_command = 'rg --vimgrep -S'
 
 " fzf
 " (Optional) Multi-entry selection UI.
@@ -200,9 +208,13 @@ nmap <silent> <leader>fhc :History:<cr>
 nmap <silent> <leader>fc :Commands<cr>
 " marks 
 nmap <silent> <leader>fm :Marks<cr>
+" maps 
+nmap <silent> <leader>fmm :Maps<cr>
+
 " search history
 " nmap <silent> <leader>fhs :History/<cr>
 nmap <silent> <leader>fw :Windows<cr>
+
 
 nnoremap <C-P> :Files<CR>
 
@@ -415,7 +427,7 @@ set cursorline
 " set textwidth=80
 
 " Highlight column right after max textwidth
-set colorcolumn=+1
+" set colorcolumn=+1
 
 
 "--------------------------------------------------
@@ -425,22 +437,31 @@ set colorcolumn=+1
 set autoindent
 
 " Enable smart indent. It add additional indents whe necessary
-" set smartindent
+set smartindent
 
 " Replace tabs with spaces
-set expandtab
+" set expandtab
 
 " When you hit tab at start of line, indent added according to shiftwidth value
 set smarttab
 
+
 " Number of spaces to use for each step of indent
-set shiftwidth=4
+" set shiftwidth=4
 
 " Number of spaces that a Tab in the file counts for
-set tabstop=4
+" set tabstop=4
 
 " but in most cases tabstop and softtabstop better be the same
-set softtabstop=4
+" set softtabstop=4
+
+
+" when setting tabstop=4 there're some wired shit going on when open a new
+" line that tabsize doesnt seems right at all
+set shiftwidth=8
+set softtabstop=8
+set tabstop=8
+set noexpandtab
 
 " Round indent to multiple of 'shiftwidth'.
 " Indentation always be multiple of shiftwidth
@@ -542,6 +563,9 @@ set diffopt+=vertical
 " Ignore changes in whitespaces characters
 set diffopt+=iwhite
 
+" Make diffing better: https://vimways.org/2018/the-power-of-diff/
+set diffopt+=algorithm:patience
+set diffopt+=indent-heuristic
 
 "--------------------------------------------------
 " Navigate Options
@@ -552,10 +576,6 @@ map L $
 " Moving between splits
 nnoremap <C-Left> gT
 nnoremap <C-Right> gt
-
-nnoremap gw <nop>
-nnoremap gw <C-w>
-nnoremap gl <C-w>w
 
 "-------------------------------------------------- 
 " personal options
@@ -573,9 +593,6 @@ vnoremap <silent><leader>y "+y<CR>
 nnoremap j gj
 nnoremap k gk
 
-" search currenet selection
-vnoremap // y:Rg -e <C-R>=escape(@", '/\/(/)')<CR><CR>
-
 " completion popup behaviour
 " https://unix.stackexchange.com/questions/162528/select-an-item-in-vim-autocomplete-list-without-inserting-line-break
 inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
@@ -585,11 +602,12 @@ inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
 
 
 " others
-nnoremap <tab> <c-w>w
+nnoremap <s-tab> <c-w>w
 
-
-
-
+" new stuff
+nnoremap <silent> <space>nt :tabnew<CR>
+" new vertical
+nnoremap <silent> <space>nv :vertical new<CR>
 
 
 "-------------------------------------------------- 
@@ -635,12 +653,13 @@ if executable('rg')
 	set grepformat=%f:%l:%c:%m
 endif
 
-":: <leader>s for Rg search
-noremap <leader>s :Rg <CR>
+" todo: find a better way to handle this
+":: <leader>s for live Rg search
+noremap <leader>s :LRg
 
 let g:fzf_layout = { 'window': { 'width': 0.9, 'height': 0.6 } }
-" let g:fzf_layout = { 'down': '~20%' }
-command! -bang -nargs=* Rg
+" let g:fzf_layout = { 'down': '~30%' }
+command! -bang -nargs=* LRg
   \ call fzf#vim#grep(
   \   'rg --column --line-number --no-heading --color=always '.shellescape(<q-args>), 1,
   \   <bang>0 ? fzf#vim#with_preview('up:60%')
