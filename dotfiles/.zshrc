@@ -3,7 +3,7 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="/Users/jimiao/.oh-my-zsh"
+export ZSH="$HOME/.oh-my-zsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
@@ -129,10 +129,7 @@ export NVM_DIR="$HOME/.nvm"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 export PATH="/usr/local/Homebrew/bin:$PATH"
-export PATH="/Users/jimiao/companyCodeSpace/dev_env/tools/bin:$PATH"
-
-export PATH="/Users/jimiao/git-fuzzy/bin:$PATH"
-export PATH="/Users/jimiao/Library/Python/3.7/bin:$PATH"
+export PATH="$HOME/Library/Python/3.7/bin:$PATH"
 
 
 export LC_ALL=zh_CN.UTF-8  
