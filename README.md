@@ -15,8 +15,15 @@ git clone <this git repo> && ln -s ~/vim-config/.vimrc ~/
 
 `ln -s .tmux.conf ~`
 
-# vim
 
+# brew
+
+all apps & cli apps are managed by homebrew, all formula are exported as Brewfile.
+for detail: visit `brew bundle --help`
+
+
+
+# vim
 
 
 
