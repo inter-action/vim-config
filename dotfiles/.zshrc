@@ -140,6 +140,6 @@ export LANG=zh_CN.UTF-8
 export HOMEBREW_NO_AUTO_UPDATE=1
 
 # default editor
-export EDITOR=/usr/local/bin/nvim
+export EDITOR=nvim
 
 
