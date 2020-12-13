@@ -38,9 +38,10 @@ opens coc config file
 研究下这个
 * https://github.com/inter-action/jarvis
 
-## install python3
+## install provider
 ```
-pip3 install pynvim
+python3 -m pip install --user --upgrade pynvim
+npm install -g neovim
 ```
 
 ## install cmake
