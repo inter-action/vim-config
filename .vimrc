@@ -41,7 +41,7 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'MattesGroeger/vim-bookmarks'
-Plug 'sirver/ultisnips'
+"Plug 'sirver/ultisnips'
 Plug 'preservim/nerdcommenter'
 
 ":: GUI enhancement
@@ -98,7 +98,7 @@ let g:NERDCreateDefaultMappings = 1
 "-------------------------
 " sirver/ultisnips
 
-let g:UltiSnipsExpandTrigger = '<c-tab>'
+"let g:UltiSnipsExpandTrigger = '<c-,>'
 
 
 
@@ -364,7 +364,6 @@ set splitbelow
 " set completeopt-=preview
 set completeopt=menu,noinsert
 
-
 " Mute error bell
 set novisualbell
 
@@ -372,16 +371,9 @@ set novisualbell
 " instead readonly and + instead modified
 set shortmess=atI
 
-" Enable display whitespace characters
-set list
-
 " Show those damn hidden characters
 " Verbose: set listchars=nbsp:¬,eol:¶,extends:»,precedes:«,trail:•
 set listchars=nbsp:¬,extends:»,precedes:«,trail:•
-
-" Wrap line only on characters in breakat list like ^I!@*-+;:,./?
-" Useless with nowrap
-" set linebreak
 
 " Numbers of lines to scroll when the cursor get off the screen
 " Useless with scrolloff
