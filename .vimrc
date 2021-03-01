@@ -41,8 +41,13 @@ Plug 'junegunn/fzf.vim'
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'MattesGroeger/vim-bookmarks'
-"Plug 'sirver/ultisnips'
-Plug 'preservim/nerdcommenter'
+
+" Track the engine.
+Plug 'SirVer/ultisnips'
+
+" Snippets are separated from the engine. Add this if you want them:
+Plug 'honza/vim-snippets'
+
 
 ":: GUI enhancement
 Plug 'machakann/vim-highlightedyank'
@@ -98,8 +103,13 @@ let g:NERDCreateDefaultMappings = 1
 "-------------------------
 " sirver/ultisnips
 
-"let g:UltiSnipsExpandTrigger = '<c-,>'
 
+let g:UltiSnipsExpandTrigger="<c-l>"
+let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpBackwardTrigger="<c-p>"
+
+" If you want :UltiSnipsEdit to split your window.
+let g:UltiSnipsEditSplit="vertical"
 
 
 
@@ -215,6 +225,8 @@ nmap <silent> <leader>fmm :Maps<cr>
 " nmap <silent> <leader>fhs :History/<cr>
 nmap <silent> <leader>fw :Windows<cr>
 
+" Buffers
+nmap <silent> <leader>b :Buffers<cr>
 
 nnoremap <C-P> :Files<CR>
 
@@ -238,9 +250,9 @@ let g:fzf_colors =
 " Fugitive
 
 " Blame on current line
-nmap <silent> <leader>b :.Gblame<cr>
+nmap <silent> <leader>gb :.Gblame<cr>
 " Blame on all selected lines in visual mode
-vmap <silent> <leader>b :Gblame<cr>
+vmap <silent> <leader>gb :Gblame<cr>
 " Git status
 nmap <silent> <leader>gst :Gstatus<cr>
 " like git add
@@ -450,9 +462,9 @@ set smarttab
 
 " when setting tabstop=4 there're some wired shit going on when open a new
 " line that tabsize doesnt seems right at all
-set shiftwidth=8
-set softtabstop=8
-set tabstop=8
+set shiftwidth=4
+set softtabstop=4
+set tabstop=4
 set noexpandtab
 
 " Round indent to multiple of 'shiftwidth'.
@@ -601,7 +613,6 @@ nnoremap <silent> <space>nt :tabnew<CR>
 " new vertical
 nnoremap <silent> <space>nv :vertical new<CR>
 nnoremap <silent> <space>z <c-z>
-
 
 "-------------------------------------------------- 
 " diff git, copied from https://brookhong.github.io/2016/09/03/view-diff-file-side-by-side-in-vim.html

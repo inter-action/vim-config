@@ -142,4 +142,6 @@ export HOMEBREW_NO_AUTO_UPDATE=1
 # default editor
 export EDITOR=nvim
 
+# android
+export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 
