@@ -583,7 +583,7 @@ nnoremap <C-Right> gt
 
 "-------------------------------------------------- 
 " personal options
-
+set pyxversion=3
 
 " Open new tab
 
