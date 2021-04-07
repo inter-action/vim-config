@@ -524,7 +524,8 @@ set foldmethod=syntax
 set nofoldenable
 
 " Keymap to toggle folds with space
-nmap <F9> zA
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 "--------------------------------------------------
 " Edit
