@@ -105,7 +105,7 @@ let g:NERDCreateDefaultMappings = 1
 
 
 let g:UltiSnipsExpandTrigger="<c-l>"
-let g:UltiSnipsJumpForwardTrigger="<c-b>"
+let g:UltiSnipsJumpForwardTrigger="<c-n>"
 let g:UltiSnipsJumpBackwardTrigger="<c-p>"
 
 " If you want :UltiSnipsEdit to split your window.
@@ -275,9 +275,9 @@ highlight ColorColumn ctermbg=lightGrey
 
 " Tomorrow, Tomorrow-Night, monokain
 " colorscheme Tomorrow-Night
-colorscheme Tomorrow-Night-Eighties
+colorscheme highlighter_term
 
-set background=dark
+"set background=dark
 
 
 "-------------------------
@@ -614,6 +614,14 @@ nnoremap <silent> <space>nt :tabnew<CR>
 nnoremap <silent> <space>nv :vertical new<CR>
 nnoremap <silent> <space>z <c-z>
 
+" working with buffers
+map gn :bn<cr>
+map gp :bp<cr>
+map gx :bd<cr>
+
+" terminal mode
+tnoremap <Esc> <C-\><C-n>
+
 "-------------------------------------------------- 
 " diff git, copied from https://brookhong.github.io/2016/09/03/view-diff-file-side-by-side-in-vim.html
 "
@@ -736,11 +744,6 @@ au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
 autocmd FileType * setlocal colorcolumn=+1
 autocmd FileType nerdtree setlocal colorcolumn=""
 
-" nerdtree config, https://github.com/scrooloose/nerdtree
-autocmd StdinReadPre * let s:std_in=1
-autocmd VimEnter * if argc() == 0 && !exists("s:std_in") | NERDTree | endif
-autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists("s:std_in") | exe 'NERDTree' argv()[0] | wincmd p | ene | exe 'cd '.argv()[0] | endif
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
 " auto save on focus lost
 au FocusLost * silent! wa
