@@ -525,7 +525,8 @@ set foldmethod=syntax
 set nofoldenable
 
 " Keymap to toggle folds with space
-nmap <F9> zA
+nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+vnoremap <Space> zf
 
 "--------------------------------------------------
 " Edit
@@ -584,7 +585,7 @@ nnoremap <C-Right> gt
 
 "-------------------------------------------------- 
 " personal options
-
+set pyxversion=3
 
 " Open new tab
 
