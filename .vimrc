@@ -116,6 +116,7 @@ let g:UltiSnipsEditSplit="vertical"
 "-------------------------
 " Lightline
 let g:lightline = {
+	  \ 'colorscheme': 'one',
       \ 'active': {
       \   'left': [ [ 'mode', 'paste' ],
       \             [ 'cocstatus', 'readonly', 'filename', 'modified' ] ]
@@ -621,6 +622,12 @@ map gx :bd<cr>
 
 " terminal mode
 tnoremap <Esc> <C-\><C-n>
+
+" hide sign column
+" https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
+highlight clear SignColumn
+
+
 
 "-------------------------------------------------- 
 " diff git, copied from https://brookhong.github.io/2016/09/03/view-diff-file-side-by-side-in-vim.html
