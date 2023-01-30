@@ -10,6 +10,9 @@ link_dotfiles:
 	ln -s .tmux.conf.local ~
 	ln -s .vimrc ~
 
+link_nvim:
+	ln -s .vimrc ~/.config/nvim/init.vim
+
 bat_light_theme:
 	bat --generate-config-file
 	echo "--theme=\"TwoDark\"" > $(bat --config-file) 
