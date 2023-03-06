@@ -1,3 +1,6 @@
+
+
+
 ## install 
 
 
@@ -22,52 +25,6 @@ all apps & cli apps are managed by homebrew, all formula are exported as Brewfil
 for detail: visit `brew bundle --help`
 
 
-
-# vim
-
-
-
-## __目标__
-主要用vim读代码, 不写代码; 还是不习惯里边的插件的操作;
-
-* vimawesome - 
-
-
-# coc
-
-安装coc自己的插件
-
-`:CocInstall coc-json coc-tsserver `
-
-opens coc config file
-`:CocConfig`
-
-研究下这个
-* https://github.com/inter-action/jarvis
-
-## install provider
-```
-python3 -m pip install --user --upgrade pynvim
-npm install -g neovim
-```
-
-## install cmake
-`brew install cmake`
-
-## install plugvim
-
-```
-curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-
-:PlugInstall
-```
-
-
-## 颜色
-
-在iterm中调节下颜色tab中的对比度;
-
-
 ## search & replacement
 ` $ brew install ripgrep `
 
@@ -75,16 +32,22 @@ curl -fLo $HOME/.local/share/nvim/site/autoload/plug.vim --create-dirs https://r
 * https://www.mattlayman.com/blog/2019/supercharging-vim-blazing-fast-search/
 * vim, fzf - https://medium.com/@sidneyliebrand/how-fzf-and-ripgrep-improved-my-workflow-61c7ca212861
 
-## 前置条件
+## cli tools/apps
 
-```
-brew install fzf
-brew install fd
-```
+* fd, fzf, bat, gitui, ripgrep, git delta, zsh (with git plugin), 
 
-## rust.vim
 
-https://github.com/rust-lang/rust.vim
+
+
+# vim (deprecated)
+
+vim config in this repo is deprecated, in favor of more modern lua config that is in my __dot_config__ repo.
+it is not got delete for archive reason.
+
+
+
+## 颜色
+在iterm中调节下颜色tab中的对比度;
 
 
 ## change default git editor
