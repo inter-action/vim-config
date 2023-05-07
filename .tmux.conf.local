@@ -313,11 +313,16 @@ set -g status-justify 'centre'
 set -g status-left-length '100'
 set -g status 'on'
 set -g status-right-length '100'
-set -g status-left '#[fg=colour232,bg=colour154] #S #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #W #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour121,bg=colour235] #(whoami)  up for #(uptime  | cut -d " " -f 4) days #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
-set -g status-right '#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour121,bg=colour235] %r  %D #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #H #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]'
-setw -g window-status-format '#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]#[default] #I  #W #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
-setw -g window-status-current-format '#[fg=colour235,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #I  #W  #F #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]'
 
+
+# https://www.ditig.com/256-colors-cheat-sheet
+set -g status-left '#[fg=colour232,bg=colour154] #S #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #W #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour37,bg=colour235] #(whoami)  up for #(uptime  | cut -d " " -f 4) days #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
+
+set -g status-right '#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour37,bg=colour235] %r  %D #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]#[fg=colour39,bg=colour238] #H #[fg=colour154,bg=colour238,nobold,nounderscore,noitalics]'
+
+setw -g window-status-format '#[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]#[fg=color248] #I  #W #[fg=colour235,bg=colour235,nobold,nounderscore,noitalics]'
+
+setw -g window-status-current-format '#[fg=colour235,bg=colour238,nobold,nounderscore,noitalics]#[fg=colour222,bg=colour238] #I  #W  #F #[fg=colour238,bg=colour235,nobold,nounderscore,noitalics]'
 
 
 
