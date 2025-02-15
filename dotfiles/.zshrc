@@ -137,6 +137,8 @@ if [[ $(uname) == "Darwin" ]]; then
     export GEM_HOME=$HOME/.gem/ruby/3.3.0
     export PATH=$GEM_HOME/bin:$PATH
 
+    # editor
+    export EDITOR=nvim
 else
     echo "linux"
 fi
