@@ -1,15 +1,14 @@
-
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-export ZSH="$HOME/.oh-my-zsh"
+export ZSH="/Users/miao/.ohmyzsh"
 
 # Set name of the theme to load --- if set to "random", it will
 # load a random theme each time oh-my-zsh is loaded, in which case,
 # to know which specific one was loaded, run: echo $RANDOM_THEME
 # See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
-ZSH_THEME="af-magic"
+ZSH_THEME="robbyrussell"
 
 # Set list of themes to pick from when loading at random
 # Setting this variable when ZSH_THEME=random will cause zsh to load
@@ -69,7 +68,7 @@ DISABLE_AUTO_UPDATE="true"
 # Custom plugins may be added to $ZSH_CUSTOM/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git z)
+plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,8 +99,7 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 
-
-
+# --- fzf
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 # Use ~~ as the trigger sequence instead of the default **
@@ -120,28 +118,37 @@ _fzf_compgen_dir() {
 }
 
 
-# nvm 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export PATH="/usr/local/Homebrew/bin:$PATH"
-export PATH="$HOME/Library/Python/3.7/bin:$PATH"
+
+source <(fzf --zsh)
+
+# --- end:fzf
+
+# OS 
+if [[ $(uname) == "Darwin" ]]; then
+    # brew install nvm 
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
+    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
+
+    # ruby
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+    export GEM_HOME=$HOME/.gem/ruby/3.3.0
+    export PATH=$GEM_HOME/bin:$PATH
+
+else
+    echo "linux"
+fi
 
 
-export LC_ALL=zh_CN.UTF-8  
-export LANG=zh_CN.UTF-8
+# disable homebrew auto update
+export HOMEBREW_NO_AUTO_UPDATE=0
 
-# brew
-# disable update for temp
-export HOMEBREW_NO_AUTO_UPDATE=1
+export PATH=/opt/homebrew/bin:$PATH
 
-# default editor
-export EDITOR=nvim
+# export JAVA_HOME=/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home
+# export PATH=$JAVA_HOME/bin:$PATH
 
-# android
-export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-
+# export PATH=$HOME/Library/Python/3.9/bin:$PATH
+#export PATH="/opt/homebrew/opt/llvm/bin:$PATH"
