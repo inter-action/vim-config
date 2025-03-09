@@ -1,3 +1,4 @@
+#!/bin/env bash
 
 # sudo apt update && sudo apt ugprade -y
 
@@ -50,10 +51,102 @@ install_nodejs(){
 
 
 install_snap(){
-    snap_packages=(
+    snap_classic_packages=(
         "idea"
+        "kubectl"
     )
+    sudo snap install "${snap_classic_packages[@]}" --classic
 }
 
 
+install_tmux() {
+    cd $HOME
+    git clone git@github.com:inter-action/vim-config.git
 
+    cd "$HOME/vim-config" && cp .tmux.conf .tmux.conf.local ..
+}
+
+# install_config_files() {
+# todo
+# https://github.com/inter-action/dot_config
+# }
+
+
+fix_apt(){
+    # https://askubuntu.com/questions/908800/what-does-this-apt-error-message-download-is-performed-unsandboxed-as-root
+    sudo chown -Rv _apt:root /var/cache/apt/archives/partial/
+    sudo chmod -Rv 700 /var/cache/apt/archives/partial/
+}
+
+
+install_nerd_fonts(){
+    declare -a fonts=(
+        #FiraCode
+        #FiraMono
+        JetBrainsMono
+        VictorMono
+        #Meslo
+    )
+
+    version='3.3.0'
+    fonts_dir="${HOME}/.local/share/fonts"
+
+    if [[ ! -d "$fonts_dir" ]]; then
+        mkdir -p "$fonts_dir"
+    fi
+
+    for font in "${fonts[@]}"; do
+        zip_file="${font}.zip"
+        download_url="https://github.com/ryanoasis/nerd-fonts/releases/download/v${version}/${zip_file}"
+        echo "Downloading $download_url"
+        wget "$download_url"
+        unzip "$zip_file" -d "$fonts_dir"
+        rm "$zip_file"
+    done
+
+    find "$fonts_dir" -name '*Windows Compatible*' -delete
+
+    fc-cache -fv
+}
+
+fix_docker_user(){
+    # add user to docker group
+    newgrp docker 
+    sudo usermod -aG docker $USER
+}
+
+
+edit_git_delta(){
+    # todo: this file could be in non-exist state
+    # check existense first?
+    rg delta ~/.gitconfig
+
+    if [[ $? -ne 0 ]]; then
+        echo "append delta config to .gitconfig file"
+
+
+        cat << EOF >> ~/.gitconfig
+[core]
+    pager = delta
+
+[interactive]
+    diffFilter = delta --color-only
+
+[delta]
+    navigate = true  # use n and N to move between diff sections
+    dark = true      # or light = true, or omit for auto-detection
+    side-by-side = true
+    line-numbers = true
+
+[merge]
+    conflictstyle = zdiff3
+EOF
+
+        # tee -a ~/.gitconfig <<EOT
+        # EOT
+    fi
+
+}
+
+
+edit_git_delta
