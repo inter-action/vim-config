@@ -19,6 +19,7 @@ install_apt(){
         "ffmpeg"
         "golang-go"
         "samba"
+        "shellcheck"
     )
 
     sudo apt install "${apt_packages[@]}" -y
@@ -115,6 +116,18 @@ fix_docker_user(){
     sudo usermod -aG docker $USER
 }
 
+fix_fd(){
+    mkdir -p ~/.local/bin
+    ln -s $(which fdfind) ~/.local/bin/fd
+
+    rg -F 'local/bin' ~/.zshrc
+
+    if [[ $? -ne 0 ]]; then
+        echo "append ~/.local/bin to PATH"
+        echo -e 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.zshrc
+    fi
+}
+
 
 edit_git_delta(){
     # todo: this file could be in non-exist state
@@ -148,5 +161,5 @@ EOF
 
 }
 
+fix_fd
 
-edit_git_delta
