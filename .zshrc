@@ -35,7 +35,16 @@ autoload -U compinit && compinit
 zinit cdreplay -q
 
 # enable zsh git plugin
-zinit snippet OMZP::git
+# zinit snippet OMZP::git
+#zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
+# zinit snippet OMZP::kubectx
+
+zinit snippet "$ZSH/plugins/git/git.plugin.zsh"
+zinit snippet "$ZSH/plugins/minikube/minikube.plugin.zsh"
+zinit snippet "$ZSH/plugins/rsync/rsync.plugin.zsh"
+zinit snippet "$ZSH/plugins/fzf/fzf.plugin.zsh"
+#zinit snippet "$ZSH/plugins/uv/uv.plugin.zsh"
+
 
 # auto completion
 bindkey '^f' autosuggest-accept
