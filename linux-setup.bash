@@ -2,10 +2,10 @@
 
 # sudo apt update && sudo apt ugprade -y
 
-# todo: nodejs
-
 install_apt(){
     apt_packages=(
+        "docker.io"
+        "docker-compose"
         "luarocks" 
         "cmake"
         "openjdk-17-jdk"
