@@ -4,12 +4,16 @@
 
 install_apt(){
     apt_packages=(
+        # docker
         "docker.io"
         "docker-compose"
+        # neovim
         "luarocks" 
-        "cmake"
-        "openjdk-17-jdk"
         "neovim"
+        # clang lsp
+        "clangd"
+        "clang-format"
+        # cli tools
         "fzf"
         "fd-find"
         "ripgrep"
@@ -17,7 +21,14 @@ install_apt(){
         "zsh"
         "gh"
         "ffmpeg"
+        "shellcheck"
+        # programming
+        "cmake"
+        # - golang
         "golang-go"
+        # - java
+        "openjdk-17-jdk"
+        # services
         "samba"
         "shellcheck"
     )
