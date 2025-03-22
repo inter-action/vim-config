@@ -23,6 +23,7 @@ install_apt(){
         "ffmpeg"
         "shellcheck"
         # programming
+        "lldb"
         "cmake"
         # - golang
         "golang-go"
