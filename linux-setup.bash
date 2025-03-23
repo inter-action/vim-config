@@ -155,6 +155,7 @@ edit_git_delta(){
 
 
         cat << EOF >> ~/.gitconfig
+# insert by script
 [core]
     pager = delta
 
