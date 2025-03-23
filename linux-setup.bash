@@ -7,6 +7,10 @@ install_apt(){
         # docker
         "docker.io"
         "docker-compose"
+        # build-essential
+        "build-essential" 
+        "dkms" 
+        "git"
         # neovim
         "luarocks" 
         "neovim"
@@ -162,6 +166,7 @@ edit_git_delta(){
     dark = true      # or light = true, or omit for auto-detection
     side-by-side = true
     line-numbers = true
+    syntax-theme = DarkNeon
 
 [merge]
     conflictstyle = zdiff3
