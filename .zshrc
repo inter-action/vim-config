@@ -56,8 +56,24 @@ bindkey "^p" history-beginning-search-backward
 bindkey "^n" history-beginning-search-forward
 
 # history settings
+# Maximum lines kept in memory (set to a large number like 1 million or more)
 HISTSIZE=100000
+# Maximum lines saved to $HISTFILE (set to the same large number)
 SAVEHIST=100000
+# Write to the history file immediately, not when the shell exits
+setopt INC_APPEND_HISTORY
+# Share history between all sessions
+setopt SHARE_HISTORY
+# Record the time when each command was executed along with the command itself
+setopt EXTENDED_HISTORY
+# Do not record an event that was just recorded again
+setopt HIST_IGNORE_DUPS
+# Delete an old recorded event if a new event is a duplicate
+setopt HIST_IGNORE_ALL_DUPS
+# Do not display a previously found event
+setopt HIST_FIND_NO_DUPS
+# Do not record an event starting with a space (useful for sensitive commands)
+setopt HIST_IGNORE_SPACE
 
 
 # colors
@@ -92,7 +108,7 @@ source <(fzf --zsh)
 # --- end:fzf
 
 
-# OS 
+# OS related
 if [[ $(uname) == "Darwin" ]]; then
 
     # brew install nvm 
@@ -133,3 +149,40 @@ else
     export NO_PROXY=localhost,127.0.0.1,10.96.0.0/12,192.168.59.0/24,192.168.49.0/24,192.168.39.0/24
 fi
 
+
+# personal utils function: toggle theme
+toggle_theme() {
+    locale mode="$1"
+    locale cfg="$HOME/.config/alacritty/alacritty.toml"
+
+    if [[ ! -f "$cfg" ]]; then
+        echo "Alacritty config not found: $cfg" >&2
+        return 1
+    fi
+
+
+    case "$mode" in
+        dark)
+            sed -i '' -E \
+                -e 's@#?("themes/Dracula.toml"[[:space:]]*)$@\1@' \
+                -e 's@#?("themes/catppuccin-latte.toml"[[:space:]]*)$@#\1@' \
+                "$cfg" || { echo "Failed to update $cfg" >&2; return 1;}
+            # delta
+            git config --global delta.dark true
+            echo "Switched to dark theme."
+            ;;
+        light)
+            sed -i '' -E \
+                -e 's@#?("themes/Dracula.toml"[[:space:]]*)$@#\1@' \
+                -e 's@#?("themes/catppuccin-latte.toml"[[:space:]]*)$@\1@' \
+                "$cfg" || { echo "Failed to update $cfg" >&2; return 1;}
+            # delta
+            git config --global delta.dark false
+            echo "Switched to light theme."
+            ;;
+        *)
+            echo "Usage: toggle_theme [light|dark]" >&2
+            return 2
+            ;;
+    esac
+}
