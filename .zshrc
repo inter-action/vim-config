@@ -20,10 +20,11 @@ source $ZSH/oh-my-zsh.sh
 # line 1: `starship` binary as command, from github release
 # line 2: starship setup at clone(create init.zsh, completion)
 # line 3: pull behavior same as clone, source init.zsh
-zinit ice as"command" from"gh-r" \
-          atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
-          atpull"%atclone" src"init.zsh"
-zinit light starship/starship
+
+# zinit ice as"command" from"gh-r" \
+#           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
+#           atpull"%atclone" src"init.zsh"
+# zinit light starship/starship
 
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
@@ -36,7 +37,7 @@ zinit cdreplay -q
 
 # enable zsh git plugin
 # zinit snippet OMZP::git
-#zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
+# zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
 # zinit snippet OMZP::kubectx
 
 zinit snippet "$ZSH/plugins/git/git.plugin.zsh"
@@ -107,6 +108,15 @@ source <(fzf --zsh)
 
 # --- end:fzf
 
+# --- start:cli tools config
+eval "$(starship init zsh)"
+
+# kubectl
+if command -v kubectl &> /dev/null; then
+    source <(kubectl completion zsh)
+fi
+
+# --- end:cli tools config
 
 # OS related
 if [[ $(uname) == "Darwin" ]]; then
@@ -152,8 +162,8 @@ fi
 
 # personal utils function: toggle theme
 toggle_theme() {
-    locale mode="$1"
-    locale cfg="$HOME/.config/alacritty/alacritty.toml"
+    local mode="$1"
+    local cfg="$HOME/.config/alacritty/alacritty.toml"
 
     if [[ ! -f "$cfg" ]]; then
         echo "Alacritty config not found: $cfg" >&2
