@@ -104,12 +104,11 @@ _fzf_compgen_dir() {
 
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-source <(fzf --zsh)
+# todo: delete this? not find this --zsh option in linux binary
+# source <(fzf --zsh)
 
 # --- end:fzf
 
-# --- start:cli tools config
-eval "$(starship init zsh)"
 
 # kubectl
 if command -v kubectl &> /dev/null; then
@@ -154,11 +153,14 @@ else
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
     export PATH="$HOME/.local/bin:$PATH"
-
-    # minikube
-    export NO_PROXY=localhost,127.0.0.1,10.96.0.0/12,192.168.59.0/24,192.168.49.0/24,192.168.39.0/24
+    # snap
+    export PATH="$PATH:/snap/bin"
+    # cargo 
+    export PATH="$HOME/.cargo/bin:$PATH"
 fi
 
+# --- start:cli tools config
+eval "$(starship init zsh)"
 
 # personal utils function: toggle theme
 toggle_theme() {
