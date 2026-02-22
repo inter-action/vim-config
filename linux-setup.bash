@@ -36,6 +36,8 @@ install_apt(){
         # services
         "samba"
         "shellcheck"
+	# python
+	"python3-pip"
     )
 
     sudo apt install "${apt_packages[@]}" -y
