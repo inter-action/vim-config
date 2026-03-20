@@ -163,32 +163,21 @@ fi
 eval "$(starship init zsh)"
 
 # personal utils function: toggle theme
+# need to manullay restart alacritty. not a big trouble as I am using tmux.
 toggle_theme() {
     local mode="$1"
-    local cfg="$HOME/.config/alacritty/alacritty.toml"
-
-    if [[ ! -f "$cfg" ]]; then
-        echo "Alacritty config not found: $cfg" >&2
-        return 1
-    fi
-
-
+    local theme_dir="$HOME/.config/alacritty/themes"
+    local current_theme="$HOME/.config/alacritty/current_theme.toml"
     case "$mode" in
         dark)
-            sed -i '' -E \
-                -e 's@#?("themes/Dracula.toml"[[:space:]]*)$@\1@' \
-                -e 's@#?("themes/catppuccin-latte.toml"[[:space:]]*)$@#\1@' \
-                "$cfg" || { echo "Failed to update $cfg" >&2; return 1;}
-            # delta
+            ln -sf "$theme_dir/Tokyonight_Night.toml" "$current_theme"
+            export THEME_ENV=dark
             git config --global delta.dark true
             echo "Switched to dark theme."
             ;;
         light)
-            sed -i '' -E \
-                -e 's@#?("themes/Dracula.toml"[[:space:]]*)$@#\1@' \
-                -e 's@#?("themes/catppuccin-latte.toml"[[:space:]]*)$@\1@' \
-                "$cfg" || { echo "Failed to update $cfg" >&2; return 1;}
-            # delta
+            ln -sf "$theme_dir/catppuccin-latte.toml" "$current_theme"
+            export THEME_ENV=light
             git config --global delta.dark false
             echo "Switched to light theme."
             ;;
